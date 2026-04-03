@@ -42,7 +42,16 @@ app.get('/register', (req, res) => {
   res.render('pages/register', { title: 'Registrarse' });
 });
 
-
+// Recibir datos del formulario de Login
+app.post('/login', (req, res) => {
+  // Extraemos lo que pusiste en los atributos "name" de tus inputs en login.ejs
+  const { username, password } = req.body; 
+  
+  console.log('Datos de login recibidos en el servidor:', username, password);
+  
+  // Como aún no hay base de datos, solo se va redirigir al inicio
+  res.redirect('/'); 
+});
 // Iniciamos el servidor
 app.listen(port, () => {
 	console.log(`Aplicación funcionando en el puerto ${port}`);
