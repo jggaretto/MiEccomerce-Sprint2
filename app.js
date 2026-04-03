@@ -8,9 +8,38 @@ const port = 3001;
 
 app.set('view engine', 'ejs');
 
+// ─── Rutas ───────────────────────────────────────────────────────────────────
+
+// Página de Inicio
 app.get('/', (req, res) => {
-	res.render('pages/index');
+  res.render('pages/index', { title: 'Inicio' });
 });
+
+// Página de Productos
+app.get('/products', (req, res) => {
+  res.render('pages/product', { title: 'Productos' });
+});
+
+// Página del Carrito
+app.get('/cart', (req, res) => {
+  res.render('pages/cart', { title: 'Carrito' });
+});
+
+// Página de Pago
+app.get('/checkout', (req, res) => {
+  res.render('pages/checkout', { title: 'Checkout' });
+});
+
+// Página de Login
+app.get('/login', (req, res) => {
+  res.render('pages/login', { title: 'Iniciar Sesión' });
+});
+
+// Página de Registro
+app.get('/register', (req, res) => {
+  res.render('pages/register', { title: 'Registrarse' });
+});
+
 
 // Iniciamos el servidor
 app.listen(port, () => {
