@@ -9,7 +9,9 @@ const port = 3001;
 app.set('view engine', 'ejs');
 
 // ─── Rutas ───────────────────────────────────────────────────────────────────
-
+// Para que Express pueda leer los datos que envían en los formularios (req.body)
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 // Página de Inicio
 app.get('/', (req, res) => {
   res.render('pages/index', { title: 'Inicio' });
