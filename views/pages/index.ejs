@@ -1,1 +1,71 @@
-<h1>Hola! 👋</h1>
+<%- include('../partials/header') %>
+
+<main>
+
+  <!-- 2. BARRA DE CATEGORÍAS -->
+  <nav class="categories-bar">
+    <div class="category"><i class="fas fa-laptop"></i><span>Electrónica</span></div>
+    <div class="category"><i class="fas fa-apple-alt"></i><span>Alimentos</span></div>
+    <div class="category"><i class="fas fa-wine-glass-alt"></i><span>Bebidas</span></div>
+    <div class="category"><i class="fas fa-shirt"></i><span>Indumentaria</span></div>
+    <div class="category"><i class="fas fa-gamepad"></i><span>Juegos</span></div>
+    <div class="category"><i class="fas fa-car"></i><span>Automotor</span></div>
+    <div class="category"><i class="fas fa-house"></i><span>Hogar</span></div>
+    <div class="category"><i class="fas fa-gift"></i><span>Otros</span></div>
+  </nav>
+
+  <!-- 3. BLOQUE DE PROMOCIONES -->
+  <section class="hero-section">
+    <div class="promo-card">
+      <a href="https://www.disneyplus.com/es-ar">
+        <img src="/assets/combo_plus.jpeg" alt="Promo 1" />
+      </a>
+      <div class="promo-info">
+        <h4>50% OFF en Combo Plus</h4>
+        <p>Canjeando 50.000 puntos MiEcommerce.</p>
+      </div>
+    </div>
+    <div class="promo-card">
+      <a href="https://www.max.com/ar/es">
+        <img src="/assets/promo_hbo.jpeg" alt="Promo 2" />
+      </a>
+      <div class="promo-info">
+        <h4>50% OFF en HBO Max</h4>
+        <p>Canjeando 50.000 puntos MiEcommerce.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SECCIÓN: "Te puede interesar" -->
+  <section class="products-section">
+    <h2 class="section-title">Te puede interesar</h2>
+    <div class="products-grid">
+      <a href="/products" class="product-card">
+        <img src="https://imgs.search.brave.com/duabWELMz0oreLezVS22vFm3ZhTMIEVdlMWpo9QgfuE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF84/ODEyMDctTUxBNzc5/MjgyNjY5NTdfMDcy/MDI0LU8ud2VicA" alt="Whiskey Jack Daniels Honey 750ml" />
+        <p class="product-title">Whiskey Jack Daniels Honey 750ml</p>
+        <p class="product-price">19.900 <span class="puntos-label">puntos</span></p>
+      </a>
+      <div class="product-card placeholder"></div>
+      <div class="product-card placeholder"></div>
+      <div class="product-card placeholder"></div>
+    </div>
+  </section>
+
+  <!-- 5. SECCIÓN: "Los más pedidos" -->
+  <section class="products-section">
+    <h2 class="section-title">Los más pedidos</h2>
+    <div class="products-grid">
+      <a class="product-card">
+        <img src="/assets/coca_cola_lata_220_mL_pack_x8.jpg" alt="Coca Cola Lata 220mL Pack x8" />
+        <p class="product-title">Coca Cola Lata 220mL Pack x8</p>
+        <p class="product-price">760 <span class="puntos-label">puntos</span></p>
+      </a>
+      <div class="product-card placeholder"></div>
+      <div class="product-card placeholder"></div>
+      <div class="product-card placeholder"></div>
+    </div>
+  </section>
+
+</main>
+
+<%- include('../partials/footer') %>
