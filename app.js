@@ -52,6 +52,16 @@ app.post('/login', (req, res) => {
   // Como aún no hay base de datos, solo se va redirigir al inicio
   res.redirect('/'); 
 });
+// Recibir datos del formulario de Registro
+app.post('/register', (req, res) => {
+  // Ahora extraemos los "name" exactos que pusimos en tu register.ejs
+  const { email, password, confirmPassword } = req.body; 
+  
+  console.log('Nuevo usuario registrado con email:', email);
+  
+  // Después de registrarse, lo mandamos al login
+  res.redirect('/login'); 
+});
 // Iniciamos el servidor
 app.listen(port, () => {
 	console.log(`Aplicación funcionando en el puerto ${port}`);
