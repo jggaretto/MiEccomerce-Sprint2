@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<main class="product-container">
+  <div class="product-back">
+    <a href="/">
+      <i class="bi bi-arrow-left"></i> Volver al listado
+    </a>
+  </div>
+
+  <div class="product-main">
+    <div class="product-image">
+      <img
+        src="https://imgs.search.brave.com/duabWELMz0oreLezVS22vFm3ZhTMIEVdlMWpo9QgfuE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF84/ODEyMDctTUxBNzc5/MjgyNjY5NTdfMDcy/MDI0LU8ud2VicA"
+        alt="Whiskey Jack Daniels Honey 750ml"
+      />
+    </div>
+
+    <div class="product-info">
+      <h1>Whiskey Jack Daniels Honey 750ml</h1>
+      <p class="product-price-large">19.900 <span>puntos</span></p>
+      <button class="btn-add-cart">Agregar al Carrito</button>
+
+      <div class="product-description">
+        <p>Un verdaderamente fabuloso licor de whisky Jack Daniels. Está hecho con una mezcla de ricas especias y suave, miel tersa y el resultado es delicioso sobre hielo o café.</p>
+        <p>Aroma de caramelo y roble carbonizado, un poco de flor de naranja, miel de manuka y vainilla.</p>
+        <p>Boca: grueso y cremoso, con notas de vainilla, roble tostado, miel de nuevo, un poco de albaricoque también.</p>
+        <p>Acabado: De buena longitud – redondeado y rico. No incluye vasos, la foto es sólo ilustrativa.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="products-section">
+    <h2 class="section-title">También te puede interesar</h2>
+    <div class="products-grid">
+      <%- include('../partials/productCard') %>
+      <div class="product-card placeholder"></div>
+      <div class="product-card placeholder"></div>
+      <div class="product-card placeholder"></div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>
