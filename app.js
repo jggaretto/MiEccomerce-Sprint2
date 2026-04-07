@@ -12,6 +12,7 @@ app.set('view engine', 'ejs');
 // Para que Express pueda leer los datos que envían en los formularios (req.body)
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(express.static('public'));
 // Página de Inicio
 app.get('/', (req, res) => {
   res.render('pages/index', { title: 'Inicio' });
