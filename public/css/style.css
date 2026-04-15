@@ -468,10 +468,12 @@ body {
 
 .auth-container {
   background-color: #00b19d; 
-  height: calc(100vh - 70px); 
+  /* CAMBIO: Usamos min-height para que no se rompa cuando se abre el teclado del celular */
+  min-height: calc(100vh - 70px); 
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px 0; /* Se agrega un respiro arriba y abajo */
 }
 
 .auth-box {
@@ -501,6 +503,8 @@ body {
   border: 1px solid #ccc;
   border-radius: 25px;
   font-size: 14px;
+  width: 100%; /* Asegura que el input no se salga de la caja */
+  box-sizing: border-box; /* Evita que el padding rompa el tamaño del input */
 }
 
 .btn-auth {
@@ -512,6 +516,7 @@ body {
   padding: 12px 0;
   font-size: 16px;
   cursor: pointer;
+  width: 100%; /* Asegura que el botón ocupe todo el ancho */
 }
 
 .btn-auth:hover {
@@ -526,6 +531,18 @@ body {
 .auth-footer-text a {
   color: #00b19d;
   text-decoration: none;
+}
+
+/* AJUSTES PARA CELULARES */
+@media (max-widt=h: 480px) {
+  .auth-box {
+    width: 95%; /* Se aprovecha un poco más la pantalla a los costados */
+    padding: 25px 15px; /* Se achican los espacios en blanco de adentro */
+  }
+  
+  .auth-box h1 {
+    font-size: 22px; /* Se achica apenitas el título */
+  }
 }
 
 /* 9. ESTILOS PÁGINA PRODUCTO                    */
