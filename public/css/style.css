@@ -534,7 +534,7 @@ body {
 }
 
 /* AJUSTES PARA CELULARES */
-@media (max-widt=h: 480px) {
+@media (max-width: 480px) {
   .auth-box {
     width: 95%; /* Se aprovecha un poco más la pantalla a los costados */
     padding: 25px 15px; /* Se achican los espacios en blanco de adentro */
