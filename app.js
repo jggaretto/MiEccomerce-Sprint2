@@ -15,8 +15,14 @@ app.use(express.json());
 app.use(express.static('public'));
 // Página de Inicio
 app.get('/', (req, res) => {
+  res.render('pages/login', { title: 'Iniciar Sesión' });
+});
+
+// Index
+app.get('/index', (req, res) => {
   res.render('pages/index', { title: 'Inicio' });
 });
+
 
 // Página de Productos
 app.get('/products', (req, res) => {
@@ -45,13 +51,9 @@ app.get('/register', (req, res) => {
 
 // Recibir datos del formulario de Login
 app.post('/login', (req, res) => {
-  // Extraemos lo que pusiste en los atributos "name" de tus inputs en login.ejs
-  const { username, password } = req.body; 
-  
+  const { username, password } = req.body;
   console.log('Datos de login recibidos en el servidor:', username, password);
-  
-  // Como aún no hay base de datos, solo se va redirigir al inicio
-  res.redirect('/'); 
+  res.redirect('/index');
 });
 // Recibir datos del formulario de Registro
 app.post('/register', (req, res) => {
