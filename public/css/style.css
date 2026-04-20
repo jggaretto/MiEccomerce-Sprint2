@@ -10,10 +10,19 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: #f5f5f5; 
   color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; 
+}
+
+main{
+  flex: 1;
 }
 
 /* 2. ESTILOS HEADER                           */
 
+.logo-short { display: none; }
+.logo-full  { display: inline; }
 
 .main-header {
   display: flex;
@@ -86,6 +95,75 @@ body {
   font-size: 10px;
   padding: 2px 5px;
   border-radius: 50%;
+}
+
+@media (max-width: 480px) {
+  .logo-short { display: inline; }
+  .logo-full  { display: none; }
+  .user-label { display: none; }
+}
+
+
+/* DROPDOWN USUARIO */
+.user-menu-wrapper {
+  position: relative;
+}
+
+.user-menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  color: #333;
+  padding: 0;
+}
+
+.user-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  min-width: 200px;
+  z-index: 1000;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.user-dropdown.open {
+  display: flex;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.15s;
+}
+
+.dropdown-item:hover {
+  background: #f0f0f0;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #eee;
+  margin: 4px 0;
 }
 
 
@@ -189,6 +267,8 @@ body {
 
 .products-section {
   padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .section-title {
@@ -205,6 +285,7 @@ body {
 }
 
 .product-card {
+  width: 160px;
   background-color: white;
   border-radius: 12px;
   padding: 10px;
@@ -467,7 +548,7 @@ body {
 /* 8. ESTILOS PÁGINA LOGIN / REGISTER             */
 
 .auth-container {
-  background-color: #00b19d; 
+  background-color: #00bcd4; 
   /* CAMBIO: Usamos min-height para que no se rompa cuando se abre el teclado del celular */
   min-height: calc(100vh - 70px); 
   display: flex;
@@ -689,4 +770,25 @@ a img {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+
+/* FOOTER MOBILE */
+@media (max-width: 480px) {
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  .footer-social-left,
+  .footer-apps-right {
+    justify-content: center;
+  }
+
+  .footer-rights {
+    font-size: 12px;
+    margin: 0;
+  }
 }
