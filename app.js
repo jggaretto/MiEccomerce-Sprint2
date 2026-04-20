@@ -65,6 +65,12 @@ app.post('/register', (req, res) => {
   // Después de registrarse, lo mandamos al login
   res.redirect('/login'); 
 });
+
+// Middleware 404 - debe ir al final de todas las rutas
+app.use((req, res) => {
+    res.status(404).render('pages/error404', { title: 'Página no encontrada' });
+});
+
 // Iniciamos el servidor
 app.listen(port, () => {
 	console.log(`Aplicación funcionando en el puerto ${port}`);
