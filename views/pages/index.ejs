@@ -42,14 +42,17 @@
   <section class="products-section">
     <h2 class="section-title">Te puede interesar</h2>
     <div class="products-grid">
-      <a href="/products" class="product-card">
-        <img src="https://imgs.search.brave.com/duabWELMz0oreLezVS22vFm3ZhTMIEVdlMWpo9QgfuE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF84/ODEyMDctTUxBNzc5/MjgyNjY5NTdfMDcy/MDI0LU8ud2VicA" alt="Whiskey Jack Daniels Honey 750ml" />
-        <p class="product-title">Whiskey Jack Daniels Honey 750ml</p>
-        <p class="product-price">19.900 <span class="puntos-label">puntos</span></p>
-      </a>
-      <div class="product-card placeholder"></div>
-      <div class="product-card placeholder"></div>
-      <div class="product-card placeholder"></div>
+      <% suggestedProducts.forEach(function(product) { %>
+        <a href="/products/<%= product.id %>" class="product-card">
+          <img
+            src="<%= product.image || '/assets/fallback.svg' %>"
+            alt="<%= product.name %>"
+            onerror="this.onerror=null; this.src='/assets/fallback.svg'"
+          />
+          <p class="product-title"><%= product.name %></p>
+          <p class="product-price"><%= product.price.toLocaleString('es-AR') %> <span class="puntos-label">puntos</span></p>
+        </a>
+      <% }) %>
     </div>
   </section>
 

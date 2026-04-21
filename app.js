@@ -1,5 +1,6 @@
 // Importamos la dependencia
 const express = require('express');
+const { getIndex } = require('./controllers/productControllers');
 
 // Instanciamos nuestra app
 const app = express();
@@ -19,9 +20,7 @@ app.get('/', (req, res) => {
 });
 
 // Index
-app.get('/index', (req, res) => {
-  res.render('pages/index', { title: 'Inicio' });
-});
+app.get('/index', getIndex);
 
 
 // Página de Productos
