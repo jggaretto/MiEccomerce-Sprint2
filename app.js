@@ -1,76 +1,83 @@
-// Importamos la dependencia
 const express = require('express');
-const { getIndex } = require('./controllers/productControllers');
+const session = require('express-session');
 
-// Instanciamos nuestra app
+const { getIndex, getProductDetail } = require('./controllers/productControllers');
+const { getCart, addToCart, increaseQuantity, decreaseQuantity, clearCart } = require('./controllers/cartController');
+
 const app = express();
-
 const port = 3001;
 
 app.set('view engine', 'ejs');
 
-// ─── Rutas ───────────────────────────────────────────────────────────────────
-// Para que Express pueda leer los datos que envían en los formularios (req.body)
+// ─── Middlewares ──────────────────────────────────────────────────────────────
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static('public'));
-// Página de Inicio
+
+app.use(session({
+  secret: 'miecommerce-secret-key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false },
+}));
+
+// Pasar cantidad de items del carrito a todas las vistas
+app.use((req, res, next) => {
+  const cart = req.session.cart || [];
+  res.locals.cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  next();
+});
+
+// ─── Rutas ────────────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
   res.render('pages/login', { title: 'Iniciar Sesión' });
 });
 
-// Index
 app.get('/index', getIndex);
 
+app.get('/products/:id', getProductDetail);
 
-// Página de Productos
 app.get('/products', (req, res) => {
-  res.render('pages/product', { title: 'Productos' });
+  res.redirect('/products/1');
 });
 
-// Página del Carrito
-app.get('/cart', (req, res) => {
-  res.render('pages/cart', { title: 'Carrito' });
-});
+// ─── Rutas del carrito ────────────────────────────────────────────────────────
+app.get('/cart', getCart);
+app.post('/cart/add', addToCart);
+app.post('/cart/increase', increaseQuantity);
+app.post('/cart/decrease', decreaseQuantity);
+app.post('/cart/clear', clearCart);
 
-// Página de Pago
+// ─── Otras páginas ────────────────────────────────────────────────────────────
 app.get('/checkout', (req, res) => {
   res.render('pages/checkout', { title: 'Checkout' });
 });
 
-// Página de Login
 app.get('/login', (req, res) => {
   res.render('pages/login', { title: 'Iniciar Sesión' });
 });
 
-// Página de Registro
 app.get('/register', (req, res) => {
   res.render('pages/register', { title: 'Registrarse' });
 });
 
-// Recibir datos del formulario de Login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   console.log('Datos de login recibidos en el servidor:', username, password);
   res.redirect('/index');
 });
-// Recibir datos del formulario de Registro
+
 app.post('/register', (req, res) => {
-  // Ahora extraemos los "name" exactos que pusimos en tu register.ejs
-  const { email, password, confirmPassword } = req.body; 
-  
+  const { email, password, confirmPassword } = req.body;
   console.log('Nuevo usuario registrado con email:', email);
-  
-  // Después de registrarse, lo mandamos al login
-  res.redirect('/login'); 
+  res.redirect('/login');
 });
 
-// Middleware 404 - debe ir al final de todas las rutas
+// ─── 404 ──────────────────────────────────────────────────────────────────────
 app.use((req, res) => {
-    res.status(404).render('pages/error404', { title: 'Página no encontrada' });
+  res.status(404).render('pages/error404', { title: 'Página no encontrada' });
 });
 
-// Iniciamos el servidor
 app.listen(port, () => {
-	console.log(`Aplicación funcionando en el puerto ${port}`);
+  console.log(`Aplicación funcionando en el puerto ${port}`);
 });
