@@ -27,4 +27,18 @@ function getProductById(id) {
   return products.find((p) => p.id === Number(id)) || null;
 }
 
-module.exports = { getAllProducts, getSuggestedProducts, getProductById };
+
+function getFeaturedProducts(limit = 10) {
+  const products = getAllProducts();
+  const featured = products.filter((p) => p.featured === true);
+
+  for (let i = featured.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [featured[i], featured[j]] = [featured[j], featured[i]];
+  }
+
+  return featured.slice(0, limit);
+}
+
+
+module.exports = { getAllProducts, getSuggestedProducts, getProductById, getFeaturedProducts };
