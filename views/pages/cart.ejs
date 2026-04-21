@@ -10,66 +10,63 @@
 
   <h1 class="cart-title">Productos en tu Carrito</h1>
 
-  <div class="cart-items">
-
-    <!-- Item 1 -->
-    <div class="cart-item">
-      <img src="https://imgs.search.brave.com/duabWELMz0oreLezVS22vFm3ZhTMIEVdlMWpo9QgfuE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF84/ODEyMDctTUxBNzc5/MjgyNjY5NTdfMDcy/MDI0LU8ud2VicA" alt="Jack Daniel's Tennessee Honey 750mL" />
-      <div class="item-info">
-        <p class="item-name">Jack Daniel's Tennessee Honey Botella 750 mL</p>
-      </div>
-      <div class="item-actions">
-        <button class="btn-remove">Quitar</button>
-        <div class="quantity-control">
-          <button class="qty-btn">−</button>
-          <span class="qty-number">1</span>
-          <button class="qty-btn">+</button>
-        </div>
-      </div>
-      <p class="item-price">19.900</p>
+  <% if (cartItems.length === 0) { %>
+    <div class="cart-empty">
+      <i class="bi bi-cart-x cart-empty-icon"></i>
+      <p>Tu carrito está vacío.</p>
+      <a href="/index" class="btn-checkout">Ver productos</a>
     </div>
 
-    <!-- Item 2 -->
-    <div class="cart-item">
-      <img src="/assets/combo_hamburguesa.jpeg" alt="Combo Hamburguesa" />
-      <div class="item-info">
-        <p class="item-name">1 Combo Hamburguesa</p>
-      </div>
-      <div class="item-actions">
-        <button class="btn-remove">Quitar</button>
-        <div class="quantity-control">
-          <button class="qty-btn">−</button>
-          <span class="qty-number">1</span>
-          <button class="qty-btn">+</button>
+  <% } else { %>
+
+    <div class="cart-items">
+      <% cartItems.forEach(function(item) { %>
+        <div class="cart-item">
+          <img
+            src="<%= item.image || '/assets/fallback.svg' %>"
+            alt="<%= item.name %>"
+            onerror="this.onerror=null; this.src='/assets/fallback.svg'"
+          />
+
+          <div class="item-info">
+            <p class="item-name"><%= item.name %></p>
+            <p class="item-unit-price"><%= item.price.toLocaleString('es-AR') %> puntos c/u</p>
+          </div>
+
+          <div class="item-actions">
+            <div class="quantity-control">
+              <form action="/cart/decrease" method="POST" style="display:inline">
+                <input type="hidden" name="productId" value="<%= item.productId %>" />
+                <button type="submit" class="qty-btn">➖</button>
+              </form>
+
+              <span class="qty-number"><%= item.quantity %></span>
+
+              <form action="/cart/increase" method="POST" style="display:inline">
+                <input type="hidden" name="productId" value="<%= item.productId %>" />
+                <button type="submit" class="qty-btn">➕</button>
+              </form>
+            </div>
+          </div>
+
+          <p class="item-price"><%= item.subtotal.toLocaleString('es-AR') %></p>
         </div>
-      </div>
-      <p class="item-price">5.000</p>
+      <% }) %>
     </div>
 
-    <!-- Item 3 -->
-    <div class="cart-item">
-      <img src="/assets/coca_cola_lata_220_mL_pack_x8.jpg" alt="Coca Cola Lata 220mL Pack x8" />
-      <div class="item-info">
-        <p class="item-name">Coca Cola Lata 220 mL Pack Original x8</p>
+    <div class="cart-summary">
+      <p class="total-label">Total de Puntos</p>
+      <p class="total-value"><%= total.toLocaleString('es-AR') %></p>
+
+      <div class="cart-actions">
+        <form action="/cart/clear" method="POST">
+          <button type="submit" class="btn-clear-cart">Vaciar carrito</button>
+        </form>
+        <a href="/checkout" class="btn-checkout">Ir a Pagar</a>
       </div>
-      <div class="item-actions">
-        <button class="btn-remove">Quitar</button>
-        <div class="quantity-control">
-          <button class="qty-btn">−</button>
-          <span class="qty-number">2</span>
-          <button class="qty-btn">+</button>
-        </div>
-      </div>
-      <p class="item-price">1.520</p>
     </div>
 
-  </div>
-
-  <div class="cart-summary">
-    <p class="total-label">Total de Puntos</p>
-    <p class="total-value">26.420</p>
-    <a href="/checkout" class="btn-checkout">Ir a Pagar</a>
-  </div>
+  <% } %>
 
 </main>
 
