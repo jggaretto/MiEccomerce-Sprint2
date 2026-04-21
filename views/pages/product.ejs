@@ -12,39 +12,45 @@
   <div class="product-main">
     <div class="product-image">
       <img
-        src="https://imgs.search.brave.com/duabWELMz0oreLezVS22vFm3ZhTMIEVdlMWpo9QgfuE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF84/ODEyMDctTUxBNzc5/MjgyNjY5NTdfMDcy/MDI0LU8ud2VicA"
-        alt="Whiskey Jack Daniels Honey 750ml"
+        src="<%= product.image || '/assets/fallback.svg' %>"
+        alt="<%= product.name %>"
+        onerror="this.onerror=null; this.src='/assets/fallback.svg'"
       />
     </div>
 
     <div class="product-info">
-      <h1>Whiskey Jack Daniels Honey 750ml</h1>
-      <p class="product-price-large">19.900 <span>puntos</span></p>
-      <button class="btn-add-cart">Agregar al Carrito</button>
+      <h1><%= product.name %></h1>
+      <p class="product-price-large"><%= product.price.toLocaleString('es-AR') %> <span>puntos</span></p>
+
+      <form action="/cart/add" method="POST">
+        <input type="hidden" name="productId" value="<%= product.id %>" />
+        <button type="submit" class="btn-add-cart">Agregar al Carrito</button>
+      </form>
 
       <div class="product-description">
-        <p>Un verdaderamente fabuloso licor de whisky Jack Daniels. Está hecho con una mezcla de ricas especias y suave, miel tersa y el resultado es delicioso sobre hielo o café.</p>
-        <p>Aroma de caramelo y roble carbonizado, un poco de flor de naranja, miel de manuka y vainilla.</p>
-        <p>Boca: grueso y cremoso, con notas de vainilla, roble tostado, miel de nuevo, un poco de albaricoque también.</p>
-        <p>Acabado: De buena longitud – redondeado y rico. No incluye vasos, la foto es sólo ilustrativa.</p>
+        <p><%= product.description %></p>
       </div>
     </div>
   </div>
 
+  <% if (related.length > 0) { %>
   <section class="products-section">
     <h2 class="section-title">También te puede interesar</h2>
     <div class="products-grid">
-      <div class="product-card">
-          <img src="assets/coca_cola_lata_220_mL_pack_x8.jpg" alt="Coca Cola Lata 220mL Pack x8" />
-          <p class="product-title">Coca Cola Lata 220 mL Pack x8</p>
-          <p class="product-price">760 <span class="puntos-label">puntos</span></p>
-        </div>
-      <div class="product-card placeholder"></div>
-      <div class="product-card placeholder"></div>
-      <div class="product-card placeholder"></div>
+      <% related.forEach(function(p) { %>
+        <a href="/products/<%= p.id %>" class="product-card">
+          <img
+            src="<%= p.image || '/assets/fallback.svg' %>"
+            alt="<%= p.name %>"
+            onerror="this.onerror=null; this.src='/assets/fallback.svg'"
+          />
+          <p class="product-title"><%= p.name %></p>
+          <p class="product-price"><%= p.price.toLocaleString('es-AR') %> <span class="puntos-label">puntos</span></p>
+        </a>
+      <% }) %>
     </div>
   </section>
+  <% } %>
 </main>
 
-<%- include('../partials/productCard') %>
 <%- include('../partials/footer') %>
