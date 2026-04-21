@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+  <rect width="300" height="300" fill="#f0f0f0" rx="8"/>
+  <text x="150" y="140" text-anchor="middle" font-family="sans-serif" font-size="60" fill="#bbb">&#128230;</text>
+  <text x="150" y="190" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#bbb">Sin imagen</text>
+</svg>
