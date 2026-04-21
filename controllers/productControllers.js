@@ -1,4 +1,4 @@
-const { getSuggestedProducts, getFeaturedProducts } = require('../models/productModels');
+const { getSuggestedProducts, getFeaturedProducts, getProductById } = require('../models/productModels');
 
 function getIndex(req, res) {
   const suggestedProducts = getSuggestedProducts(5, true);
