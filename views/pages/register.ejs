@@ -4,10 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MiEcommerce | Regístrate</title>
-  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-  
   <link rel="stylesheet" href="/styles/style.css" />
 </head>
 <body>
@@ -23,32 +21,68 @@
   <main class="auth-container">
     <div class="auth-box">
       <h1>¡Regístrate!</h1>
-      
+
+      <%# Errores server-side %>
+      <% if (typeof errores !== 'undefined' && errores.length > 0) { %>
+        <ul class="auth-errores">
+          <% errores.forEach(function(error) { %>
+            <li><%= error %></li>
+          <% }) %>
+        </ul>
+      <% } %>
+
       <form id="registroForm" action="/register" method="POST" class="auth-form">
-        
+
         <label>
           <span class="sr-only">Nombre</span>
-          <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required />
+          <input
+            type="text"
+            name="nombre"
+            id="nombre"
+            placeholder="Tu nombre"
+            value="<%= typeof formData !== 'undefined' ? formData.nombre : '' %>"
+            required
+          />
         </label>
-        
+
         <label>
           <span class="sr-only">Apellido</span>
-          <input type="text" name="apellido" id="apellido" placeholder="Tu apellido" required />
+          <input
+            type="text"
+            name="apellido"
+            id="apellido"
+            placeholder="Tu apellido"
+            value="<%= typeof formData !== 'undefined' ? formData.apellido : '' %>"
+            required
+          />
         </label>
 
         <label>
           <span class="sr-only">Email</span>
-          <input type="email" name="email" id="email" placeholder="Tu email" required />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Tu email"
+            value="<%= typeof formData !== 'undefined' ? formData.email : '' %>"
+            required
+          />
         </label>
 
         <label>
           <span class="sr-only">Contraseña</span>
-          <input type="password" name="password" id="password" placeholder="Tu nueva contraseña" required />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Tu nueva contraseña"
+            required
+          />
         </label>
 
         <button type="submit" class="btn-auth">Crear Cuenta</button>
       </form>
-      
+
       <p class="auth-footer-text">
         ¿Ya tienes cuenta?
         <a href="/login">Inicia Sesión</a>
@@ -56,72 +90,69 @@
     </div>
   </main>
 
-  <footer class="main-footer">
-    </footer>
+  <footer class="main-footer"></footer>
 
+  <%# Validación client-side inline %>
   <script>
     const formulario = document.getElementById('registroForm');
 
     formulario.addEventListener('submit', function(evento) {
-      // 1. Obtenemos los valores y les quitamos los espacios al principio y final (Requerimiento)
-      const nombre = document.getElementById('nombre').value.trim();
+      const nombre   = document.getElementById('nombre').value.trim();
       const apellido = document.getElementById('apellido').value.trim();
-      const email = document.getElementById('email').value.trim();
+      const email    = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value.trim();
 
-      let errores = [];
+      const errores = [];
 
-      // 2. Validar que no estén en blanco (El trim() ayuda a que "   " cuente como blanco)
-      if (!nombre) errores.push("El nombre no puede estar en blanco.");
+      // Campos en blanco
+      if (!nombre)   errores.push("El nombre no puede estar en blanco.");
       if (!apellido) errores.push("El apellido no puede estar en blanco.");
-      if (!email) errores.push("El email no puede estar en blanco.");
+      if (!email)    errores.push("El email no puede estar en blanco.");
       if (!password) errores.push("La contraseña no puede estar en blanco.");
 
-      // 3. Validar formato de Email
+      // Formato email
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (email && !emailRegex.test(email)) {
         errores.push("El formato del email no es válido.");
       }
 
-      // 4. Validaciones de Contraseña
+      // Validaciones contraseña
       if (password) {
-        // Al menos 8 caracteres
-        if (password.length < 8) errores.push("La contraseña debe tener al menos 8 caracteres.");
-        // Al menos una letra
-        if (!/[a-zA-Z]/.test(password)) errores.push("La contraseña debe incluir al menos una letra.");
-        // Al menos un número
-        if (!/[0-9]/.test(password)) errores.push("La contraseña debe incluir al menos un número.");
-        // Al menos un carácter especial del listado permitido
-        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        if (password.length < 8)
+          errores.push("La contraseña debe tener al menos 8 caracteres.");
+
+        if (!/[a-zA-Z]/.test(password))
+          errores.push("La contraseña debe incluir al menos una letra.");
+
+        if (!/[0-9]/.test(password))
+          errores.push("La contraseña debe incluir al menos un número.");
+
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password))
           errores.push("La contraseña debe incluir al menos un carácter especial (! @ # $ % etc).");
-        }
 
         // Cadenas prohibidas
-        const passMin = password.toLowerCase();
+        const passMin    = password.toLowerCase();
         const prohibidas = ["password", "1234", "qwerty", "miecommerce", nombre.toLowerCase(), apellido.toLowerCase()];
-        
-        prohibidas.forEach(palabra => {
+
+        prohibidas.forEach(function(palabra) {
           if (palabra && passMin.includes(palabra)) {
-            errores.push(`La contraseña no debe contener palabras obvias como tu nombre, apellido o "${palabra}".`);
+            errores.push(`La contraseña no debe contener la cadena "${palabra}".`);
           }
         });
 
-        // No debe ser igual al email
+        // No igual al email
         if (password === email) {
           errores.push("La contraseña no puede ser igual a tu email.");
         }
       }
 
-      // 5. Decisión final: ¿Se envía o no?
+      // Si hay errores frenamos el envío
       if (errores.length > 0) {
-        // Frenamos el envío al servidor
-        evento.preventDefault(); 
-        
-        // Mostramos los errores de forma sencilla (puedes cambiarlo por un diseño más lindo luego)
-        alert("Corrije los siguientes errores:\n\n" + errores.join("\n"));
+        evento.preventDefault();
+        alert("Corregí los siguientes errores:\n\n" + errores.join("\n"));
       }
-      // Si el array de 'errores' está vacío, la función termina y el formulario se envía por POST a /register naturalmente.
     });
   </script>
+
 </body>
 </html>
