@@ -33,9 +33,9 @@
     </div>
   </div>
 
-  <% if (related.length > 0) { %>
   <section class="products-section">
-    <h2 class="section-title">También te puede interesar</h2>
+  <h2 class="section-title">También te puede interesar</h2>
+  <% if (related.length > 0) { %>
     <div class="products-grid">
       <% related.forEach(function(p) { %>
         <a href="/products/<%= p.id %>" class="product-card">
@@ -49,8 +49,10 @@
         </a>
       <% }) %>
     </div>
-  </section>
+  <% } else { %>
+    <p class="no-related">No hay productos relacionados disponibles.</p>
   <% } %>
+</section>
 </main>
 
 <%- include('../partials/footer') %>

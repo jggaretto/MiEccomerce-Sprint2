@@ -40,5 +40,21 @@ function getFeaturedProducts(limit = 10) {
   return featured.slice(0, limit);
 }
 
+function getRelatedProducts(category, excludeId, limit = 4) {
+  if (!category) return [];
 
-module.exports = { getAllProducts, getSuggestedProducts, getProductById, getFeaturedProducts };
+  const products = getAllProducts();
+  const related = products.filter(
+    (p) => p.category === category && p.id !== Number(excludeId)
+  );
+
+  for (let i = related.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [related[i], related[j]] = [related[j], related[i]];
+  }
+
+  return related.slice(0, limit);
+}
+
+
+module.exports = { getAllProducts, getSuggestedProducts, getProductById, getFeaturedProducts, getRelatedProducts };
