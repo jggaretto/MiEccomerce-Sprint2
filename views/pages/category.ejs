@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="/css/style.css" />
+
+<%- include('../partials/header') %>
+
+<main>
+
+  <section class="products-section">
+    <h2 class="section-title">Categoría: <%= category %></h2>
+
+    <% if (products.length > 0) { %>
+      <div class="products-grid">
+        <% products.forEach(function(product) { %>
+          <a href="/products/<%= product.id %>" class="product-card">
+            <img
+              src="<%= product.image || '/assets/fallback.svg' %>"
+              alt="<%= product.name %>"
+              onerror="this.onerror=null; this.src='/assets/fallback.svg'"
+            />
+            <p class="product-title"><%= product.name %></p>
+            <p class="product-price">
+              <%= product.price.toLocaleString('es-AR') %>
+              <span class="puntos-label">puntos</span>
+            </p>
+          </a>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p class="empty-category">
+        No encontramos productos en la categoría <strong><%= category %></strong>.
+        <a href="/index">Volver al inicio</a>
+      </p>
+    <% } %>
+  </section>
+
+</main>
+
+<%- include('../partials/footer') %>

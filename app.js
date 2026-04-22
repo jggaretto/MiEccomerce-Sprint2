@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 
-const { getIndex, getProductDetail } = require('./controllers/productControllers');
+const { getIndex, getProductDetail, getCategory } = require('./controllers/productControllers');
 const { getCart, addToCart, increaseQuantity, decreaseQuantity, clearCart } = require('./controllers/cartController');
 
 const app = express();
@@ -29,6 +29,8 @@ app.use((req, res, next) => {
 });
 
 // ─── Rutas ────────────────────────────────────────────────────────────────────
+app.get('/categories/:category', getCategory);
+
 app.get('/', (req, res) => {
   res.render('pages/login', { title: 'Iniciar Sesión' });
 });
