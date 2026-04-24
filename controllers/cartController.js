@@ -34,6 +34,9 @@ function addToCart(req, res) {
 
   if (!product) return res.redirect('/index');
 
+//bloquea agregar si no hay stock
+if (product.stock === 0) return res.redirect(`/products/${productId}`);
+
   const existing = req.session.cart.find((item) => item.productId === productId);
 
   if (existing) {
